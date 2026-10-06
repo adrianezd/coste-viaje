@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cuánto cuesta un viaje en coche — Calculadora de gasolina 2026</title>
+<meta name="description" content="Calcula cuánto cuesta un viaje en coche entre dos ciudades: kilómetros, tiempo, litros y euros de gasolina o diésel con el precio medio de hoy en tu provincia, y cuánto toca pagar a cada uno.">
+<link rel="canonical" href="https://adrianezd.github.io/coste-viaje/">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#e67e22">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Cuánto cuesta un viaje en coche">
+<meta property="og:description" content="Kilómetros, gasolina y cuánto paga cada uno, con el precio de hoy.">
+<meta property="og:url" content="https://adrianezd.github.io/coste-viaje/">
+<meta property="og:locale" content="es_ES">
+<link rel="stylesheet" href="style.css">
+<style>:root { --accent: #e67e22; }</style>
+<!-- seo -->
+<meta name="keywords" content="coste viaje coche, calculadora gasolina, precio gasolina hoy, gasto combustible viaje, diesel precio provincia">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="author" content="adrianezd">
+<meta property="og:site_name" content="Cuánto cuesta un viaje en coche">
+<meta property="og:image" content="https://adrianezd.github.io/coste-viaje/favicon.svg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cuánto cuesta un viaje en coche">
+<meta name="twitter:description" content="Calcula cuánto cuesta un viaje en coche: kilómetros, litros y euros con el precio medio de hoy en tu provincia, y cuánto paga cada uno.">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Cuánto cuesta un viaje en coche","url":"https://adrianezd.github.io/coste-viaje/","description":"Calcula cuánto cuesta un viaje en coche: kilómetros, litros y euros con el precio medio de hoy en tu provincia, y cuánto paga cada uno.","inLanguage":"es","applicationCategory":"TravelApplication","operatingSystem":"Any","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"author":{"@type":"Person","name":"adrianezd"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿De dónde sale el precio del combustible?","acceptedAnswer":{"@type":"Answer","text":"De la media diaria de las gasolineras de cada provincia que publica el Ministerio para la Transición Ecológica."}},{"@type":"Question","name":"¿Cada cuánto se actualiza?","acceptedAnswer":{"@type":"Answer","text":"Una vez al día."}},{"@type":"Question","name":"¿Incluye peajes?","acceptedAnswer":{"@type":"Answer","text":"No. Calcula solo el combustible; los peajes y el aparcamiento puedes sumarlos aparte."}}]}]}</script>
+<!-- /seo -->
+</head>
+<body>
+<header class="top">
+  <h1>🚗 ¿Cuánto cuesta el viaje?</h1>
+  <p class="sub">Gasolina, kilómetros y cuánto paga cada uno</p>
+</header>
+<main>
+  <form class="tarjeta" id="form">
+    <div class="form">
+      <label>Desde <input id="origen" placeholder="Madrid" required></label>
+      <label>Hasta <input id="destino" placeholder="Valencia" required></label>
+    </div>
+    <button class="boton" style="width:100%;margin-top:12px" id="bCalcular">Calcular ruta</button>
+    <p class="texto" id="estado" style="margin:8px 0 0"></p>
+  </form>
+
+  <section class="tarjeta">
+    <div class="form">
+      <label>Kilómetros, solo ida <input id="km" type="number" min="0" value="0"></label>
+      <label>Consumo, litros cada 100 km <input id="consumo" type="number" step="0.1" value="6.5"></label>
+      <label>Combustible <select id="tipo"><option value="g95">Gasolina 95</option><option value="diesel">Diésel</option></select></label>
+      <label>Precio de la provincia <select id="provincia"><option value="">Media de España</option></select></label>
+      <label>Precio por litro, € <input id="precioL" type="number" step="0.001"></label>
+      <label>Personas en el coche <input id="personas" type="number" min="1" max="9" value="1"></label>
+      <label>Peajes y aparcamiento, € <input id="peajes" type="number" min="0" value="0"></label>
+      <label style="display:flex;align-items:center;gap:8px;color:var(--text)"><input type="checkbox" id="vuelta" style="width:auto" checked> Ida y vuelta</label>
+    </div>
+  </section>
+
+  <section class="tarjeta" style="text-align:center">
+    <div class="etq">El viaje cuesta</div>
+    <div class="grande" id="total">–</div>
+    <p class="sub" id="porPersona"></p>
+  </section>
+  <section class="cifras">
+    <div class="tarjeta"><div class="etq">Distancia</div><b id="dist">–</b><span id="tiempo"></span></div>
+    <div class="tarjeta"><div class="etq">Combustible</div><b id="litros">–</b><span>litros</span></div>
+    <div class="tarjeta"><div class="etq">Cada 100 km</div><b id="cien">–</b><span>de combustible</span></div>
+  </section>
+  <section class="tarjeta"><button class="boton" style="width:100%" id="compartir">Compartir</button></section>
+  <section class="texto">
+    <h2>De dónde salen los datos</h2>
+    <p>El precio es la media de hoy de todas las gasolineras de la provincia, según el Ministerio de Industria. Se actualiza cada mañana. La ruta se calcula con OpenStreetMap y OSRM; si no encuentra un sitio, escribe los kilómetros a mano.</p>
+    <p id="fechaPrecios"></p>
+  </section>
+</main>
+<footer>Datos: Ministerio para la Transición Ecológica · © colaboradores de OpenStreetMap · OSRM</footer>
+<!-- red -->
+<section class="seo-faq" style="max-width:760px;margin:0 auto;padding:8px 16px;font-size:.92rem;opacity:.85"><h2 style="font-size:1rem">Preguntas frecuentes</h2><details><summary>¿De dónde sale el precio del combustible?</summary><p>De la media diaria de las gasolineras de cada provincia que publica el Ministerio para la Transición Ecológica.</p></details><details><summary>¿Cada cuánto se actualiza?</summary><p>Una vez al día.</p></details><details><summary>¿Incluye peajes?</summary><p>No. Calcula solo el combustible; los peajes y el aparcamiento puedes sumarlos aparte.</p></details></section>
+<nav class="seo-red" style="max-width:760px;margin:0 auto;padding:8px 16px 28px;font-size:.85rem;opacity:.75;text-align:center">Más webs gratis: <a href="https://adrianezd.github.io/precio-luz-hoy/">Precio de la luz</a> · <a href="https://adrianezd.github.io/sueldo-neto/">Sueldo neto</a> · <a href="https://adrianezd.github.io/la-previa/">La Previa</a> · <a href="https://adrianezd.github.io/brisca-maldita/">Brisca Maldita</a> · <a href="https://adrianezd.github.io/embalses-hoy/">Embalses hoy</a> · <a href="https://adrianezd.github.io/calendario-laboral/">Calendario laboral</a> · <a href="https://adrianezd.github.io/alquilar-o-comprar/">Alquilar o comprar</a> · <a href="https://adrianezd.github.io/coste-viaje/">Coste del viaje</a> · <a href="https://adrianezd.github.io/pueblodle/">Pueblodle</a> · <a href="https://adrianezd.github.io/grid-laliga/">Grid LaLiga</a> · <a href="https://adrianezd.github.io/quien-lo-dijo/">Quién lo dijo</a> · <a href="https://adrianezd.github.io/el-mentiroso/">El Mentiroso</a></nav>
+<!-- /red -->
+<script src="script.js"></script>
+</body>
+</html>

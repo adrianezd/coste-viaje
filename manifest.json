@@ -1,0 +1,19 @@
+{
+  "name": "Coste de un viaje en coche",
+  "short_name": "Coste viaje",
+  "description": "Calcula kilómetros, litros y euros de un viaje en coche con el precio medio del carburante de hoy en cada provincia, y cuánto paga cada uno.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#e67e22",
+  "theme_color": "#e67e22",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
